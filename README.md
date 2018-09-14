@@ -1,4 +1,5 @@
-
+[![CircleCI](https://circleci.com/gh/feedyard/circleci-platform-agent.svg?style=svg)](https://circleci.com/gh/feedyard/circleci-platform-agent)
+[![Docker Repository on Quay](https://quay.io/repository/feedyard/circleci-platform-agent/status "Docker Repository on Quay")](https://quay.io/repository/feedyard/circleci-platform-agent)
 # feedyard/circleci-platform-agent
 
 circleci primary container, based on feedyard/circleci-base-agent. includes common tools for building or managing     
