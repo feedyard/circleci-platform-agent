@@ -1,14 +1,14 @@
-FROM quay.io/feedyard/circleci-base-agent:3.8.7
+FROM quay.io/feedyard/circleci-base-agent:3.8.8
 
 LABEL maintainers = "nic.cheneweth@thoughtworks.com"
 
 RUN apk add --no-cache go
 
 ENV KOPS_VERSION=1.10.0
-ENV KUBECTL_VERSION=v1.11.3
+ENV KUBECTL_VERSION=v1.12.0
 
-ENV CONSUL_VERSION=1.2.3
-ENV CONSUL_SHA256SUM=f97996296ef3905c38c504b35035fb731d3cfd9cad129c9523402a4229c709c5
+ENV CONSUL_VERSION=1.3.0
+ENV CONSUL_SHA256SUM=a6896509b72fa229496b3adda51357c95d68a796ae3328d7d6a61195d6c68bac
 
 RUN curl -LO https://github.com/kubernetes/kops/releases/download/$KOPS_VERSION/kops-linux-amd64 && \
     chmod +x kops-linux-amd64 && \
