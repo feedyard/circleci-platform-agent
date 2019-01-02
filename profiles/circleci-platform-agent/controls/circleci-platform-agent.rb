@@ -12,7 +12,7 @@ control 'kops version' do
   title 'confirm kops version installed'
   desc 'confirm version reported by kops matches the desired version'
   describe command('kops version') do
-    its('stdout') { should include ('1.10') }
+    its('stdout') { should include ('1.11') }
   end
 end
 
@@ -21,7 +21,7 @@ control 'kubectl version' do
   title 'confirm kubectl version installed'
   desc 'confirm version reported by kubectl matches the desired version'
   describe command('kubectl version') do
-    its('stdout') { should include ('1.12') }
+    its('stdout') { should include ('1.13') }
   end
 end
 
@@ -30,6 +30,6 @@ control 'consul version' do
   title 'confirm consul version installed'
   desc 'confirm version reported by consul matches the desired version'
   describe command('consul version') do
-    its('stdout') { should include ('1.3') }
+    its('stdout') { should include ('1.4') }
   end
 end
