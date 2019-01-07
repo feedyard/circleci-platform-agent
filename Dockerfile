@@ -34,25 +34,3 @@ RUN go get -u github.com/cloudflare/cfssl/cmd/cfssljson && \
     apk del build-dependencies
 
 HEALTHCHECK none
-
-#
-## general packages to support building infra oriented docker images
-#RUN apk add --no-cache \
-#        docker \
-#        openrc \
-#        curl \
-#        wget \
-#        python3 \
-#        ruby \
-#        ruby-bundler \
-#        ruby-webrick \
-#        jq && \
-#    apk add --virtual build-dependencies \
-#        build-base \
-#        python3-dev \
-#        ruby-dev \
-#        libffi-dev \
-#        musl-dev \
-#        g++ \
-#        gcc \
-#        make && \
