@@ -4,7 +4,7 @@ LABEL maintainers = "nic.cheneweth@thoughtworks.com"
 
 RUN apk add --no-cache go && \
     apk add --virtual build-dependencies \
-            g++ \
+            g++
 
 ENV KOPS_VERSION=1.11.0
 ENV KUBECTL_VERSION=v1.13.0
