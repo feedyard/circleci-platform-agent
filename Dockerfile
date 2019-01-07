@@ -2,7 +2,9 @@ FROM quay.io/feedyard/circleci-base-agent:4.1.2
 
 LABEL maintainers = "nic.cheneweth@thoughtworks.com"
 
-RUN apk add --no-cache go
+RUN apk add --no-cache go && \
+    apk add --virtual build-dependencies \
+            build-base \
 
 ENV KOPS_VERSION=1.11.0
 ENV KUBECTL_VERSION=v1.13.0
@@ -28,6 +30,29 @@ RUN go get -u github.com/cloudflare/cfssl/cmd/cfssl && \
     ln -s ~/go/bin/cfssl /usr/local/bin/cfssl
 
 RUN go get -u github.com/cloudflare/cfssl/cmd/cfssljson && \
-    ln -s ~/go/bin/cfssljson /usr/local/bin/cfssljson
+    ln -s ~/go/bin/cfssljson /usr/local/bin/cfssljson && \
+    apk del build-dependencies
 
 HEALTHCHECK none
+
+#
+## general packages to support building infra oriented docker images
+#RUN apk add --no-cache \
+#        docker \
+#        openrc \
+#        curl \
+#        wget \
+#        python3 \
+#        ruby \
+#        ruby-bundler \
+#        ruby-webrick \
+#        jq && \
+#    apk add --virtual build-dependencies \
+#        build-base \
+#        python3-dev \
+#        ruby-dev \
+#        libffi-dev \
+#        musl-dev \
+#        g++ \
+#        gcc \
+#        make && \
