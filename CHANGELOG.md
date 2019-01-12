@@ -12,4 +12,9 @@ consul=1.4.0
 
 ### 01-05-2019 update base image
 
-quay.io/feedyard/circleci-base-agent:4.1.2
+quay.io/feedyard/circleci-base-agent:4.1.2  
+
+
+### 01-11-2019 update base image
+
+quay.io/feedyard/circleci-base-agent:4.2.0  
