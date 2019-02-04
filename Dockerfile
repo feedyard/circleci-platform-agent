@@ -8,28 +8,31 @@ RUN apk add --no-cache go && \
 
 ENV KOPS_VERSION=1.11.0
 ENV KUBECTL_VERSION=v1.13.0
+ENV AWS_IAM_AUTHENTICATOR_VERSION=1.11.5
+ENV AWS_IAM_AUTHENTICATOR_RELEASE_DATE=2018-12-06
 
 ENV CONSUL_VERSION=1.4.0
 ENV CONSUL_SHA256SUM=41f8c3d63a18ef4e51372522c1e052618cdfcffa3d9f02dba0b50820e8279824
 
 RUN curl -LO https://github.com/kubernetes/kops/releases/download/$KOPS_VERSION/kops-linux-amd64 && \
     chmod +x kops-linux-amd64 && \
-    mv kops-linux-amd64 /usr/local/bin/kops
-
-RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl && \
+    mv kops-linux-amd64 /usr/local/bin/kops && \
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl && \
     chmod +x ./kubectl  && \
-    mv ./kubectl /usr/local/bin/kubectl
-
-RUN curl -SLO https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip > consul_${CONSUL_VERSION}_linux_amd64.zip && \
+    mv ./kubectl /usr/local/bin/kubectl && \
+    wget -q https://amazon-eks.s3-us-west-2.amazonaws.com/${AWS_IAM_AUTHENTICATOR_VERSION}/${AWS_IAM_AUTHENTICATOR_RELEASE_DATE}/bin/linux/amd64/aws-iam-authenticator && \
+    chmod +x aws-iam-authenticator && \
+    mv aws-iam-authenticator /usr/bin && \
+    curl -SLO https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip > consul_${CONSUL_VERSION}_linux_amd64.zip && \
     echo "${CONSUL_SHA256SUM}  consul_${CONSUL_VERSION}_linux_amd64.zip" > consul_${CONSUL_VERSION}_SHA256SUMS && \
     sha256sum -cs consul_${CONSUL_VERSION}_SHA256SUMS && \
     unzip consul_${CONSUL_VERSION}_linux_amd64.zip -d /usr/local/bin && \
-    rm -f consul_${CONSUL_VERSION}_linux_amd64.zip
+    rm -f consul_${CONSUL_VERSION}_linux_amd64.zip && \
+
 
 RUN go get -u github.com/cloudflare/cfssl/cmd/cfssl && \
-    ln -s ~/go/bin/cfssl /usr/local/bin/cfssl
-
-RUN go get -u github.com/cloudflare/cfssl/cmd/cfssljson && \
+    ln -s ~/go/bin/cfssl /usr/local/bin/cfssl && \
+    go get -u github.com/cloudflare/cfssl/cmd/cfssljson && \
     ln -s ~/go/bin/cfssljson /usr/local/bin/cfssljson && \
     apk del build-dependencies
 
