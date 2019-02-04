@@ -27,7 +27,7 @@ RUN curl -LO https://github.com/kubernetes/kops/releases/download/$KOPS_VERSION/
     echo "${CONSUL_SHA256SUM}  consul_${CONSUL_VERSION}_linux_amd64.zip" > consul_${CONSUL_VERSION}_SHA256SUMS && \
     sha256sum -cs consul_${CONSUL_VERSION}_SHA256SUMS && \
     unzip consul_${CONSUL_VERSION}_linux_amd64.zip -d /usr/local/bin && \
-    rm -f consul_${CONSUL_VERSION}_linux_amd64.zip && \
+    rm -f consul_${CONSUL_VERSION}_linux_amd64.zip
 
 
 RUN go get -u github.com/cloudflare/cfssl/cmd/cfssl && \
