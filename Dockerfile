@@ -1,4 +1,4 @@
-FROM quay.io/feedyard/circleci-infra-agent:4.3.1
+FROM quay.io/feedyard/circleci-infra-agent:4.4.0
 
 LABEL maintainers = "nic.cheneweth@thoughtworks.com"
 
@@ -6,13 +6,15 @@ RUN apk add --no-cache go && \
     apk add --virtual build-dependencies \
             g++
 
-ENV KOPS_VERSION=1.11.0
-ENV KUBECTL_VERSION=v1.13.0
-ENV AWS_IAM_AUTHENTICATOR_VERSION=1.11.5
-ENV AWS_IAM_AUTHENTICATOR_RELEASE_DATE=2018-12-06
+ENV KOPS_VERSION=1.12.1
+ENV KUBECTL_VERSION=v1.14.0
+ENV AWS_IAM_AUTHENTICATOR_VERSION=1.12.7
+ENV AWS_IAM_AUTHENTICATOR_RELEASE_DATE=2019-03-27
 
-ENV CONSUL_VERSION=1.4.0
-ENV CONSUL_SHA256SUM=41f8c3d63a18ef4e51372522c1e052618cdfcffa3d9f02dba0b50820e8279824
+ENV CONSUL_VERSION=1.5.0
+ENV CONSUL_SHA256SUM=1399064050019db05d3378f757e058ec4426a917dd2d240336b51532065880b6
+ENV VAULT_VERSION=1.1.2
+ENV VAULT_SHA256SUM=e927fd4daac11f6c7b8b3f1f53f2017516e29e99585dc975b657acdeac43500b
 
 RUN curl -LO https://github.com/kubernetes/kops/releases/download/$KOPS_VERSION/kops-linux-amd64 && \
     chmod +x kops-linux-amd64 && \
@@ -27,7 +29,12 @@ RUN curl -LO https://github.com/kubernetes/kops/releases/download/$KOPS_VERSION/
     echo "${CONSUL_SHA256SUM}  consul_${CONSUL_VERSION}_linux_amd64.zip" > consul_${CONSUL_VERSION}_SHA256SUMS && \
     sha256sum -cs consul_${CONSUL_VERSION}_SHA256SUMS && \
     unzip consul_${CONSUL_VERSION}_linux_amd64.zip -d /usr/local/bin && \
-    rm -f consul_${CONSUL_VERSION}_linux_amd64.zip
+    rm -f consul_${CONSUL_VERSION}_linux_amd64.zip && \
+    curl -SLO https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip > vault_${VAULT_VERSION}_linux_amd64.zip && \
+    echo "${VAULT_SHA256SUM}  vault_${VAULT_VERSION}_linux_amd64.zip" > vault_${VAULT_VERSION}_SHA256SUMS && \
+    sha256sum -cs vault_${VAULT_VERSION}_SHA256SUMS && \
+    unzip vault_${VAULT_VERSION}_linux_amd64.zip -d /usr/local/bin && \
+    rm -f vault_${VAULT_VERSION}_linux_amd64.zip
 
 
 RUN go get -u github.com/cloudflare/cfssl/cmd/cfssl && \
