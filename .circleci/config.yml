@@ -2,31 +2,44 @@
 version: 2.1
 
 orbs:
-  circle-agent: feedyard/circleci-agent-publish@dev:latest
+  executor-tools: feedyard/executor-tools@dev:latest
+  common: feedyard/common-pipeline-tasks@dev:latest
 
 workflows:
-  circleci-platform-agent-pipeline:
+  circleci-platform-agent-executor-pipeline:
     jobs:
-      - circle-agent/dev-release:
-          context: ci
+      - executor-tools/dev-release:
+          name: dev-release
+          context: executor-publishing
+          image: feedyard/circleci-platform-agent
           registry: quay.io
-          after_build:
+          after-build:
             - run:
                 name: configuration testing of the image
                 command: |
                   set -euo pipefail
                   inspec exec --no-distinct-exit profiles/cis-docker
-                  CID="$(docker run -it -d --entrypoint ash quay.io/feedyard/circleci-platform-agent:$CIRCLE_SHA1)"
+                  CID="$(docker run -it -d --entrypoint ash quay.io/feedyard/circleci-platform-agent:dev.$CIRCLE_SHA1)"
                   inspec exec profiles/circleci-platform-agent/ -t docker://$CID
                   docker rm -f $CID
           filters:
             branches:
-              only: master
+              only: /master/
             tags:
               ignore: /.*/
-      - circle-agent/publish:
-          context: ci
+      - executor-tools/publish:
+          context: executor-publishing
+          image: feedyard/circleci-platform-agent
           registry: quay.io
+          after-publish:
+            - common/slack:
+                title: New Executor Version
+                message: new version published feedyard/circleci-platform-agent $CIRCLE_TAG
+                webhook: SLACK_WEBHOOK
+          clean-tags:
+            - executor-tools/clean-quay:
+                image: feedyard/circleci-platform-agent
+                bearer-token: QUAYIO_BEARER_TOKEN
           filters:
             branches:
               ignore: /.*/
