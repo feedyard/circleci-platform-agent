@@ -1,28 +1,27 @@
-FROM quay.io/feedyard/circleci-infra-agent:4.4.0
+FROM quay.io/feedyard/circleci-infra-agent:4.5.0
 
 LABEL maintainers = "nic.cheneweth@thoughtworks.com"
 
-RUN apk add --no-cache go && \
-    apk add --virtual build-dependencies \
-            g++
+RUN apk add --no-cache go=1.11.5-r0 && \
+    apk add --no-cache --virtual build-dependencies g++=8.3.0-r0
 
 ENV KOPS_VERSION=1.12.1
 ENV KUBECTL_VERSION=v1.14.0
 ENV AWS_IAM_AUTHENTICATOR_VERSION=1.12.7
 ENV AWS_IAM_AUTHENTICATOR_RELEASE_DATE=2019-03-27
 
-ENV CONSUL_VERSION=1.5.0
-ENV CONSUL_SHA256SUM=1399064050019db05d3378f757e058ec4426a917dd2d240336b51532065880b6
-ENV VAULT_VERSION=1.1.2
-ENV VAULT_SHA256SUM=e927fd4daac11f6c7b8b3f1f53f2017516e29e99585dc975b657acdeac43500b
+ENV CONSUL_VERSION=1.5.1
+ENV CONSUL_SHA256SUM=58fbf392965b629db0d08984ec2bd43a5cb4c7cc7ba059f2494ec37c32fdcb91
+ENV VAULT_VERSION=1.1.3
+ENV VAULT_SHA256SUM=293b88f4d31f6bcdcc8b508eccb7b856a0423270adebfa0f52f04144c5a22ae0
 
-RUN curl -LO https://github.com/kubernetes/kops/releases/download/$KOPS_VERSION/kops-linux-amd64 && \
+RUN curl -SLO https://github.com/kubernetes/kops/releases/download/$KOPS_VERSION/kops-linux-amd64 && \
     chmod +x kops-linux-amd64 && \
     mv kops-linux-amd64 /usr/local/bin/kops && \
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl && \
+    curl -SLO https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl && \
     chmod +x ./kubectl  && \
     mv ./kubectl /usr/local/bin/kubectl && \
-    wget -q https://amazon-eks.s3-us-west-2.amazonaws.com/${AWS_IAM_AUTHENTICATOR_VERSION}/${AWS_IAM_AUTHENTICATOR_RELEASE_DATE}/bin/linux/amd64/aws-iam-authenticator && \
+    curl -SLO https://amazon-eks.s3-us-west-2.amazonaws.com/${AWS_IAM_AUTHENTICATOR_VERSION}/${AWS_IAM_AUTHENTICATOR_RELEASE_DATE}/bin/linux/amd64/aws-iam-authenticator && \
     chmod +x aws-iam-authenticator && \
     mv aws-iam-authenticator /usr/bin && \
     curl -SLO https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip > consul_${CONSUL_VERSION}_linux_amd64.zip && \
@@ -36,11 +35,10 @@ RUN curl -LO https://github.com/kubernetes/kops/releases/download/$KOPS_VERSION/
     unzip vault_${VAULT_VERSION}_linux_amd64.zip -d /usr/local/bin && \
     rm -f vault_${VAULT_VERSION}_linux_amd64.zip
 
-
 RUN go get -u github.com/cloudflare/cfssl/cmd/cfssl && \
     ln -s ~/go/bin/cfssl /usr/local/bin/cfssl && \
     go get -u github.com/cloudflare/cfssl/cmd/cfssljson && \
     ln -s ~/go/bin/cfssljson /usr/local/bin/cfssljson && \
     apk del build-dependencies
 
-HEALTHCHECK none
+HEALTHCHECK NONE

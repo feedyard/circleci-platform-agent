@@ -15,3 +15,7 @@ cfssl                 |
 cfssljson             |
 
 See CHANGELOG for list of installed packages/versions  
+
+
+curl -SLO https://releases.hashicorp.com/vault/1.1.3/vault_1.1.3_linux_amd64.zip
+echo "c243dce14b2e48e3667c2aa5b7fb37009dd7043b56032d6ebe50dd456715fd3f vault_1.1.3_linux_amd64.zip" > vault_1.1.3_SHA256SUMS
