@@ -2,8 +2,8 @@
 version: 2.1
 
 orbs:
-  executor-tools: feedyard/executor-tools@dev:latest
-  common: feedyard/common-pipeline-tasks@dev:latest
+  executor-tools: feedyard/executor-tools@0.2.0
+  common: feedyard/common-pipeline-tasks@0.6.0
 
 workflows:
   circleci-platform-agent-executor-pipeline:
