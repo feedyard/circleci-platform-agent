@@ -7,8 +7,6 @@ RUN apk add --no-cache go=1.11.5-r0 && \
 
 ENV KOPS_VERSION=1.12.1
 ENV KUBECTL_VERSION=v1.14.0
-ENV AWS_IAM_AUTHENTICATOR_VERSION=1.12.7
-ENV AWS_IAM_AUTHENTICATOR_RELEASE_DATE=2019-03-27
 
 ENV CONSUL_VERSION=1.5.1
 ENV CONSUL_SHA256SUM=58fbf392965b629db0d08984ec2bd43a5cb4c7cc7ba059f2494ec37c32fdcb91
@@ -21,9 +19,6 @@ RUN curl -SLO https://github.com/kubernetes/kops/releases/download/$KOPS_VERSION
     curl -SLO https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl && \
     chmod +x ./kubectl  && \
     mv ./kubectl /usr/local/bin/kubectl && \
-    curl -SLO https://amazon-eks.s3-us-west-2.amazonaws.com/${AWS_IAM_AUTHENTICATOR_VERSION}/${AWS_IAM_AUTHENTICATOR_RELEASE_DATE}/bin/linux/amd64/aws-iam-authenticator && \
-    chmod +x aws-iam-authenticator && \
-    mv aws-iam-authenticator /usr/bin && \
     curl -SLO https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip > consul_${CONSUL_VERSION}_linux_amd64.zip && \
     echo "${CONSUL_SHA256SUM}  consul_${CONSUL_VERSION}_linux_amd64.zip" > consul_${CONSUL_VERSION}_SHA256SUMS && \
     sha256sum -cs consul_${CONSUL_VERSION}_SHA256SUMS && \
