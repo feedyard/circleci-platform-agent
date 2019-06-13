@@ -12,12 +12,12 @@ consul=1.4.0
 
 ### 01-05-2019 update base image
 
-quay.io/feedyard/circleci-base-agent:4.1.2  
+quay.io/feedyard/circleci-infra-agent:4.1.2  
 
 
 ### 01-11-2019 update base image
 
-quay.io/feedyard/circleci-base-agent:4.2.0  
+quay.io/feedyard/circleci-infra-agent:4.2.0  
 kops=1.12.0  
 kubectl=v1.14.0  
 consul=1.5.0  
@@ -26,5 +26,9 @@ aws-iam-authenticator=1.12.7
 
 ### 06-07-2019 new base image
 
-quay.io/feedyard/circleci-base-agent:4.5.0  
-  
+quay.io/feedyard/circleci-base-infra:4.5.0  
+
+### 06-13-2019 update base image, remove one package
+
+quay.io/feedyard/circleci-base-infra:4.5.1  
+remove aws-iam-authenticator (moved to circleci-infra-agent)  

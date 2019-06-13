@@ -25,15 +25,6 @@ control 'kubectl version' do
   end
 end
 
-control 'aws-iam-authenticator version' do
-  impact 1.0
-  title 'confirm aws-iam-authenticator version installed'
-  desc 'confirm version reported by aws-iam-authenticator matches the desired version'
-  describe command('aws-iam-authenticator') do
-    its('exit_status') { should eq 0 }
-  end
-end
-
 control 'consul version' do
   impact 1.0
   title 'confirm consul version installed'
