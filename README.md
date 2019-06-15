@@ -4,14 +4,14 @@ Based on [feedyard/circleci-infra-agent](https://github.com/feedyard/circleci-in
 kubernetes and platform resources as code in circleci pipelines.  
 
 
-packages/bin          |
-----------------------|
-kops                  |
-kubectl               | 
-aws-iam-authenticator | 
-go                    |
-consul                |
-cfssl                 |
-cfssljson             |
+packages/bin  |
+--------------|
+kops          |
+kubectl       | 
+go            |
+consul        |
+vault         |
+cfssl         |
+cfssljson     |
 
 See CHANGELOG for list of installed packages/versions  
