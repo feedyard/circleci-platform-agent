@@ -35,4 +35,9 @@ remove aws-iam-authenticator (moved to circleci-infra-agent)
 
 ### 06-14-2019 base image minor change
 
-quay.io/feedyard/circleci-base-infra:4.5.2  
+quay.io/feedyard/circleci-base-infra:4.5.2    
+
+### 06-14-2019 release version 4.6.0
+
+quay.io/feedyard/circleci-base-infra:4.6.0  
+  
