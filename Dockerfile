@@ -1,4 +1,4 @@
-FROM quay.io/feedyard/circleci-infra-agent:4.6.0
+FROM quay.io/feedyard/circleci-infra-agent:4.7.0
 
 LABEL maintainers = "nic.cheneweth@thoughtworks.com"
 

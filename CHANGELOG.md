@@ -41,3 +41,6 @@ quay.io/feedyard/circleci-base-infra:4.5.2
 
 quay.io/feedyard/circleci-base-infra:4.6.0  
   
+### 06-20-2019 release version 4.7.0
+
+quay.io/feedyard/circleci-base-infra:4.7.0 (tflint)  
