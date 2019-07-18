@@ -1,15 +1,15 @@
-FROM quay.io/feedyard/circleci-infra-agent:4.7.0
+FROM quay.io/feedyard/circleci-infra-agent:4.8.0
 
 LABEL maintainers = "nic.cheneweth@thoughtworks.com"
 
-RUN apk add --no-cache go=1.11.5-r0 && \
+RUN apk add --no-cache go=1.12.6-r0 && \
     apk add --no-cache --virtual build-dependencies g++=8.3.0-r0
 
-ENV KOPS_VERSION=1.12.1
-ENV KUBECTL_VERSION=v1.14.0
+ENV KOPS_VERSION=1.14.0-alpha.3
+ENV KUBECTL_VERSION=v1.15.0
 
-ENV CONSUL_VERSION=1.5.1
-ENV CONSUL_SHA256SUM=58fbf392965b629db0d08984ec2bd43a5cb4c7cc7ba059f2494ec37c32fdcb91
+ENV CONSUL_VERSION=1.5.2
+ENV CONSUL_SHA256SUM=d4aaf1956c39ed778d10642e301d382ce37fcddf268366700f2a45e737157ef3
 ENV VAULT_VERSION=1.1.3
 ENV VAULT_SHA256SUM=293b88f4d31f6bcdcc8b508eccb7b856a0423270adebfa0f52f04144c5a22ae0
 
