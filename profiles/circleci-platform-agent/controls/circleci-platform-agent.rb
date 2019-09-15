@@ -30,7 +30,7 @@ control 'consul version' do
   title 'confirm consul version installed'
   desc 'confirm version reported by consul matches the desired version'
   describe command('consul version') do
-    its('stdout') { should include ('1.5') }
+    its('stdout') { should include ('1.6') }
   end
 end
 
@@ -39,6 +39,6 @@ control 'vault version' do
   title 'confirm vault version installed'
   desc 'confirm version reported by vault matches the desired version'
   describe command('vault version') do
-    its('stdout') { should include ('1.1') }
+    its('stdout') { should include ('1.2') }
   end
 end
